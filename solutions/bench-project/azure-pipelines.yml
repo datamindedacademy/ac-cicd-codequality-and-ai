@@ -1,0 +1,56 @@
+# Runs the checks of the bench project on Azure Pipelines.
+# Reference solution for exercises/pipelines 01 and 02.
+#
+# Pull requests into main get a run through the build validation branch policy.
+# The trigger below adds a run for every push to main, after a merge.
+
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-latest
+
+jobs:
+  # Exercise 01: the same ruff checks as the pre-commit hooks.
+  - job: lint
+    displayName: Lint and format
+    steps:
+      - script: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "##vso[task.prependpath]$HOME/.local/bin"
+        displayName: Install uv
+
+      - script: uv sync --locked
+        displayName: Install Python and the packages from uv.lock
+
+      - script: uv run ruff check .
+        displayName: ruff check
+
+      - script: uv run ruff format --check .
+        displayName: ruff format --check
+
+  # Exercise 02: the tests, as a second job in the same pipeline.
+  - job: test
+    displayName: Tests
+    steps:
+      - script: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "##vso[task.prependpath]$HOME/.local/bin"
+        displayName: Install uv
+
+      - script: uv sync --locked
+        displayName: Install Python and the packages from uv.lock
+
+      - script: uv run pytest --junitxml=test-results.xml
+        displayName: Run the tests
+
+      # Exercise 02, task 3: the Tests tab of the run, also when a test failed.
+      - task: PublishTestResults@2
+        displayName: Publish the test results
+        condition: succeededOrFailed()
+        inputs:
+          testResultsFormat: JUnit
+          testResultsFiles: test-results.xml
+          testRunTitle: pytest

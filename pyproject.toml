@@ -1,5 +1,29 @@
 [project]
-name = "academy-template"
+name = "ac-cicd-codequality-and-ai"
 version = "0.1.0"
-requires-python = ">=3.14"
+description = "Day 3 of the Atlas Copco Python training: Git, unit tests with pytest, and CI pipelines on Azure DevOps."
+requires-python = ">=3.13"
 dependencies = []
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pyyaml",
+    "ruff",
+]
+
+[tool.ruff]
+line-length = 100
+# The bench project has its own ruff settings in its own pyproject.toml.
+extend-exclude = ["exercises/bench-project", "solutions/bench-project"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.uv.workspace]
+# The bench project is a separate project that participants copy to their own
+# repository. Keep uv from treating it as part of this one.
+exclude = ["exercises/bench-project", "solutions/bench-project"]

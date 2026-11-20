@@ -1,0 +1,42 @@
+# pre-commit runs these hooks on the staged files before every commit.
+# Reference solution for exercises/code-quality/02-pre-commit.
+
+# Task 3: `pre-commit install` sets up both Git hooks, and hooks without their
+# own `stages` run at commit time only.
+default_install_hook_types: [pre-commit, pre-push]
+default_stages: [pre-commit]
+
+repos:
+  # Task 1: ruff from the project itself, so the hook uses the version in uv.lock,
+  # the same one as `uv run ruff` and the pipeline.
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: ruff check
+        entry: uv run ruff check --fix
+        language: system
+        types: [python]
+      - id: ruff-format
+        name: ruff format
+        entry: uv run ruff format
+        language: system
+        types: [python]
+
+  # Task 2: ready-made hooks from GitHub. pre-commit downloads them once.
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+        args: [--maxkb=500]
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  # Task 3: the tests before every push, not before every commit.
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        entry: uv run pytest -q
+        language: system
+        pass_filenames: false
+        stages: [pre-push]

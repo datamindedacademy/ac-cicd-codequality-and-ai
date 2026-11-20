@@ -1,0 +1,58 @@
+/* Slidev parks the "go to slide" dialog off-screen (`-top-20`) when it is closed,
+   but its autocomplete list keeps rendering and hangs down over the slide.
+   Hide the list while the dialog is parked; pressing "g" still works. */
+#slidev-goto-dialog[class*="-top-20"] .autocomplete-list {
+  display: none;
+}
+
+/* Deck-wide helpers. Slide-level <style> blocks are scoped to their own slide,
+   so anything shared between slides lives here. */
+.fig { display: block; margin: 16px auto 0; max-height: 360px; }
+.fig-sm { display: block; margin: 16px auto 0; max-height: 240px; }
+.small { font-size: 0.85em; }
+.muted { opacity: 0.7; }
+
+/* Equal-width card grids for DmInfoCard / DmIconBadge rows. */
+.grid-2, .grid-3 { display: grid; gap: 16px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+/* One-line takeaway under a table or diagram, so it never sits flush against it. */
+.note {
+  margin-top: 18px !important;
+  padding: 10px 16px;
+  border-left: 4px solid var(--dm-connecting);
+  background: var(--dm-authentic);
+  border-radius: 0 8px 8px 0;
+  color: var(--dm-premium);
+  font-size: 15px;
+}
+.note code { background: #fff; }
+
+/* Code on the left, a picture of what it does on the right. */
+.split { display: grid; grid-template-columns: 1.15fr 1fr; gap: 28px; align-items: center; }
+.split > * { min-width: 0; }
+
+/* Card body text at the size bullets had, so cards stay readable from the back of the room. */
+.dm-info-body { font-size: 14.5px !important; }
+.dm-info-title { font-size: 17px !important; }
+
+/* A question for the room, at the bottom of a slide. The answer is in the speaker notes. */
+.ask {
+  margin-top: 14px !important;
+  padding: 9px 16px;
+  border: 2px dashed var(--dm-connecting);
+  border-radius: 8px;
+  color: var(--dm-premium);
+  font-size: 15px;
+}
+.ask b { color: var(--dm-connecting); margin-right: 8px; }
+.ask code { background: var(--dm-authentic); }
+
+/* One line that says why the slide matters. */
+.why {
+  margin: 4px 0 10px !important;
+  color: var(--dm-premium);
+  font-size: 16px;
+}
+.why b { color: var(--dm-connecting); margin-right: 8px; }

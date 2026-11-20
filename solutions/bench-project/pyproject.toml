@@ -1,0 +1,27 @@
+[project]
+name = "bench"
+version = "0.1.0"
+description = "Helpers for compressor test bench readings and logs."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "ruff",
+]
+
+[build-system]
+requires = ["uv_build>=0.13.8,<0.14.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+# The default rules, plus pycodestyle errors (E) and likely bugs (B).
+extend-select = ["E", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,50 +1,66 @@
-# Course name
+# CI/CD, Code Quality and AI
 
 [![Dataminded Academy](https://raw.githubusercontent.com/datamindedacademy/branding/main/assets/badge.svg)](https://github.com/datamindedacademy)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/datamindedacademy/REPO-NAME)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/datamindedacademy/ac-cicd-codequality-and-ai)
 
-> **TODO:** replace `REPO-NAME` in the Codespaces badge above with this repository's
-> name. The link does not work until you do.
+Course material for **day 3** of the Dataminded training *Python Programming and Data
+Analysis* for Atlas Copco: Git on Azure DevOps, ruff and pre-commit, unit tests with pytest,
+and branch policies with pipelines that check every pull request.
 
-One paragraph on what this course covers and who it is for.
+Day 3 assumes the Python fundamentals of day 1: functions, conditionals, loops and
+imports, and a working setup with uv. You do not need day 2, and you do not need to know
+Git yet. After this day you can:
 
-## Getting started in GitHub Codespaces
+- Clone a repository from Azure DevOps, commit on a branch, merge and push from the
+  command line.
+- Fix what a linter reports on your own code, and run the checks at commit time with pre-commit.
+- Write a unit test for an existing function and run the test suite.
+- Read a failing test and decide whether the code or the test is wrong.
+- Get a change into `main` with a reviewed pull request, and protect `main` with branch
+  policies: a reviewer, and a pipeline that runs ruff and pytest and blocks the merge when
+  one fails.
 
-Click the badge above, or **Code → Codespaces → Create codespace on main** on the
-repository page. The devcontainer builds Python 3.14 and `uv`, then runs `uv sync`.
-The first build takes a few minutes.
+You're free to use GitHub Copilot throughout. Make sure that you understand everything it
+writes or proposes.
 
-## Getting started locally
+## What is in this repository
 
-You need [uv](https://docs.astral.sh/uv/getting-started/installation/). Then:
+| Path | What it is |
+| --- | --- |
+| [`exercises/git/`](exercises/git/) | Git exercises, with a script that prepares a practice repository |
+| [`exercises/bench-project/`](exercises/bench-project/) | The small Python project you clean up, test and check in a pipeline |
+| [`exercises/code-quality/`](exercises/code-quality/) | ruff and pre-commit exercises on the bench project |
+| [`exercises/pytest/`](exercises/pytest/) | pytest exercises on the bench project |
+| [`exercises/pipelines/`](exercises/pipelines/) | Branch policy and Azure Pipelines exercises on the bench project |
+| [`exercises/ai/`](exercises/ai/) | Optional: skills and prompts for Copilot |
+| [`solutions/`](solutions/) | Reference solutions. Try the exercise first. |
+| [`slides/`](slides/) | The slide deck |
+| [`tests/`](tests/) | Tests for the course material itself |
+| [`TRAINER.md`](TRAINER.md) | Timing and preparation, for the trainer |
 
-```bash
+## Getting started
+
+You need the tools from the setup manual: Git for Windows, uv, and Visual Studio Code
+with GitHub Copilot. Open **PowerShell** and run these commands one by one:
+
+```powershell
+cd $HOME\Documents
+git clone https://github.com/datamindedacademy/ac-cicd-codequality-and-ai
+cd ac-cicd-codequality-and-ai
 uv sync
+code .
 ```
 
-Run anything through `uv run`.
+In VS Code, accept the recommended extensions and select the interpreter in `.venv`
+(`Ctrl+Shift+P`, then *Python: Select Interpreter*).
 
-## The exercises
+Start with [`exercises/git/`](exercises/git/) and [`exercises/code-quality/`](exercises/code-quality/)
+in the morning. After lunch, continue with [`exercises/pytest/`](exercises/pytest/) and then
+[`exercises/pipelines/`](exercises/pipelines/).
 
-| Folder | Topic |
-| ------ | ----- |
-| [`1-first-topic`](1-first-topic/) | What they practice here |
-
-## Reference
-
-- Links to the docs participants will need.
+If your laptop setup does not work in time, use the Codespaces button at the top. It
+opens the same tools in the browser, with PowerShell as the terminal.
 
 ## License
 
 [MIT](LICENSE).
-
----
-
-## Using this template
-
-1. **Use this template** on GitHub, or `gh repo create datamindedacademy/<name> --template datamindedacademy/academy-template --public`.
-2. Replace `REPO-NAME` in the Codespaces badge above with the new repository name.
-3. Set the title, the intro paragraph and the exercise table.
-4. Set the copyright year and holder in `LICENSE` if they differ.
-5. Rename the project in `pyproject.toml` and `.devcontainer/devcontainer.json`.
-6. Delete this section.
